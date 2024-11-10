@@ -281,15 +281,19 @@ def confidence_interval():
     # Plot the true parameter value
     plot4_path = "static/plot4.png"
     # Write code here to generate and save the plot
-    plt.figure()
-    plt.hist(estimates, bins=30, color='lightgray', edgecolor='black', alpha=0.7, label='Simulated Estimates')
+    plt.figure(figsize=(10, 6))
+    plt.scatter(estimates, np.zeros_like(estimates), color='gray', alpha=0.5, label='Simulated Estimates')
+    plt.axhline(0, color='black', linewidth=0.5)  # baseline for visual reference
     plt.axvline(mean_estimate, color='blue', linestyle='-', linewidth=2, label='Mean Estimate')
     plt.axvline(true_param, color='green', linestyle='--', linewidth=2, label='True Parameter')
-    plt.axvline(ci_lower, color='red', linestyle='--', linewidth=2, label=f'{confidence_level*100:.1f}% CI Lower')
-    plt.axvline(ci_upper, color='red', linestyle='--', linewidth=2, label=f'{confidence_level*100:.1f}% CI Upper')
-    plt.title(f'{confidence_level*100:.1f}% Confidence Interval for {parameter.capitalize()} (Mean Estimate)')
+    plt.hlines(0, ci_lower, ci_upper, color='blue', linewidth=2, label=f'{confidence_level*100}% CI')
+
+    # Highlight the mean estimate as a big blue dot
+    plt.scatter([mean_estimate], [0], color='blue', s=100, zorder=3)
+
+    plt.title(f'{confidence_level*100}% Confidence Interval for {parameter.capitalize()} (Mean Estimate)')
     plt.xlabel(f'{parameter.capitalize()} Estimate')
-    plt.ylabel('Frequency')
+    plt.yticks([])  # Remove y-ticks since it's not needed
     plt.legend()
     plt.savefig(plot4_path)
     plt.close()
