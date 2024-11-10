@@ -13,10 +13,6 @@ run:
 	python app.py
 	 ./$(VENV_DIR)/bin/python -m flask run --host=0.0.0.0 --port=3000
 
-# Run tests using pytest
-test:
-	./$(VENV_DIR)/bin/pytest
-
 # Clean up: remove the virtual environment
 clean:
 	rm -rf $(VENV_DIR)
