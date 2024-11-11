@@ -135,6 +135,7 @@
 
                 <h3>Histogram of Slopes and Intercepts</h3>
                 <img src="{{ url_for('static', filename='plot2.png') }}" alt="Histogram Plot">
+                <img src="{{ url_for('static', filename='plot5.png') }}" alt="Histogram Plot">
 
                 {% if slope_extreme is defined and slope_extreme is not none %}
                     <p><strong>Proportion of slopes more extreme than observed slope:</strong> {{ slope_extreme | round(4) }}</p>

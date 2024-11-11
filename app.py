@@ -69,6 +69,17 @@ def generate_data(N, mu, beta0, beta1, sigma2, S):
     plt.savefig(plot2_path)
     plt.close()
 
+    # Plot histogram of intercepts
+    # Plot histogram of intercepts
+    plot5_path = "static/plot5.png"
+    plt.figure()
+    plt.hist(intercepts, bins=30, color='lightgreen', edgecolor='black')
+    plt.title('Histogram of Simulated Intercepts')
+    plt.xlabel('Intercept')
+    plt.ylabel('Frequency')
+    plt.savefig(plot5_path)
+    plt.close()
+
     # Calculate proportions of slopes and intercepts more extreme than observed
     slope_more_extreme = np.mean(np.abs(slopes) > np.abs(slope))
     intercept_extreme = np.mean(np.abs(intercepts) > np.abs(intercept))
@@ -81,6 +92,7 @@ def generate_data(N, mu, beta0, beta1, sigma2, S):
         intercept,
         plot1_path,
         plot2_path,
+        plot5_path,
         slope_more_extreme,
         intercept_extreme,
         slopes,
@@ -107,6 +119,7 @@ def index():
             intercept,
             plot1,
             plot2,
+            plot5,
             slope_extreme,
             intercept_extreme,
             slopes,
@@ -137,6 +150,7 @@ def index():
             "index.html",
             plot1=plot1,
             plot2=plot2,
+            plot5=plot5,
             slope_extreme=slope_extreme,
             intercept_extreme=intercept_extreme,
             N=N,
@@ -291,7 +305,7 @@ def confidence_interval():
     # Highlight the mean estimate as a big blue dot
     plt.scatter([mean_estimate], [0], color='blue', s=100, zorder=3)
 
-    plt.title(f'{confidence_level*100}% Confidence Interval for {parameter.capitalize()} (Mean Estimate)')
+    plt.title(f'{confidence_level*100: .0f}% Confidence Interval for {parameter.capitalize()} (Mean Estimate)')
     plt.xlabel(f'{parameter.capitalize()} Estimate')
     plt.yticks([])  # Remove y-ticks since it's not needed
     plt.legend()
@@ -305,7 +319,7 @@ def confidence_interval():
         plot2="static/plot2.png",
         plot4=plot4_path,
         parameter=parameter,
-        confidence_level=confidence_level,
+        confidence_level=confidence_level * 100,
         mean_estimate=mean_estimate,
         ci_lower=ci_lower,
         ci_upper=ci_upper,
